@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
         </table>
         <div>
           <label>Base number: </label>
-          <input [(ngModel)]="base_num" placeholder="0">
+          <input type="number" [(ngModel)]="base_num" placeholder="0">
         </div>
         <div>{{base_num}}</div>
         <button (click)="randomize()">CLICK</button>
@@ -85,14 +85,19 @@ export class LineChartDemoComponent {
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
 
-  public base_num: number = 0;
+  public base_num: number = 100;
+
+  constructor(){
+     console.log("hell");
+    }
 
   public randomize(): void {
     let _lineChartData: Array<any> = new Array(this.lineChartData.length);
     for (let i = 0; i < this.lineChartData.length; i++) {
       _lineChartData[i] = { data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label };
       for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
+        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1) + this.base_num;
+        console.log(_lineChartData[i].data[j])
       }
     }
     this.lineChartData = _lineChartData;
