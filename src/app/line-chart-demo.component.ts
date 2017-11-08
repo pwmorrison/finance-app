@@ -35,6 +35,11 @@ import { Component } from '@angular/core';
             <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
           </tr>
         </table>
+        <div>
+          <label>Base number: </label>
+          <input [(ngModel)]="base_num" placeholder="0">
+        </div>
+        <div>{{base_num}}</div>
         <button (click)="randomize()">CLICK</button>
       </div>
     </div>
@@ -79,6 +84,8 @@ export class LineChartDemoComponent {
   ];
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
+
+  public base_num: number = 0;
 
   public randomize(): void {
     let _lineChartData: Array<any> = new Array(this.lineChartData.length);

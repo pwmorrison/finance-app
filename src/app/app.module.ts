@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AlertModule } from 'ngx-bootstrap';
@@ -14,6 +15,7 @@ import { LineChartDemoComponent } from './line-chart-demo.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ChartsModule,
     AlertModule.forRoot()
   ],
