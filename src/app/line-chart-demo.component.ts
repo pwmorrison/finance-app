@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
 import { CreditCardDetails } from './credit-card-details';
+import {CreditCardService } from './credit-card.service'
 
 @Component({
   selector: 'line-chart-demo',
   templateUrl: './line-chart-demo.component.html'
 })
 export class LineChartDemoComponent {
+
   // lineChart
-  public lineChartData: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
-  ];
+  public lineChartData: Array<any>;
+  // public lineChartData: Array<any> = [
+  //   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+  //   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+  //   { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
+  // ];
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: any = {
     responsive: true
@@ -50,9 +53,13 @@ export class LineChartDemoComponent {
   // The details currently being displayed.
   creditCardDetails: CreditCardDetails;
 
-  constructor() {
+  constructor(private creditCardService: CreditCardService) {
     // Create initial credit card details.
     this.creditCardDetails = new CreditCardDetails(10000, 12*10, 30, 5000, 4000, 0.04);
+  }
+
+  ngOnInit() {
+    this.randomize();
   }
 
   public randomize_fn(numSeries: number, numPoints: number, labels: string[], base_num: number): Array<any> {
@@ -68,8 +75,9 @@ export class LineChartDemoComponent {
   }
 
   public randomize(): void {
-    this.lineChartData = this.randomize_fn(this.lineChartData.length, this.lineChartData[0].data.length,
-      ['A', 'B', 'C'], this.base_num);
+    //this.lineChartData = this.randomize_fn(this.lineChartData.length, this.lineChartData[0].data.length,
+    //  ['A', 'B', 'C'], this.base_num);
+    this.lineChartData = this.creditCardService.getRandomData();
   }
 
   // public randomize(): void {

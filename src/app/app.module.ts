@@ -8,6 +8,8 @@ import { AlertModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { LineChartDemoComponent } from './line-chart-demo.component';
 
+import { CreditCardService } from './credit-card.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,7 @@ import { LineChartDemoComponent } from './line-chart-demo.component';
     ChartsModule,
     AlertModule.forRoot()
   ],
-  providers: [],
+  providers: [CreditCardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

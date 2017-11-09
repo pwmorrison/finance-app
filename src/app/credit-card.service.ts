@@ -18,6 +18,6 @@ export class CreditCardService {
   }
 
   getRandomData(): Array<any> {
-    return this.randomize(3, 10, ['A', 'B', 'C'], 100);
+    return this.randomize(3, 10, ['A', 'B', 'C'], 200);
   }
 }
