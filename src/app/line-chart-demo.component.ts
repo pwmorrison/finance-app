@@ -1,49 +1,9 @@
 import { Component } from '@angular/core';
+import { CreditCardDetails } from './credit-card-details';
 
 @Component({
   selector: 'line-chart-demo',
-  template: `
-    <p>Line chart demo!!</p>
-    <alert type="success">hello</alert>
-    <div class="row">
-      <td>hello</td>
-      <td>Goodbye</td>
-      <div class="col-sm-4">.col-sm-4</div>
-      <div class="col-sm-4">.col-sm-4</div>
-      <div class="col-sm-4">.col-sm-4</div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div style="display: block;">
-        <canvas baseChart width="100" height="100"
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors"
-                    [legend]="lineChartLegend"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-        </div>
-      </div>
-      <div class="col-md-6" style="margin-bottom: 10px">
-        <table class="table table-responsive table-condensed">
-          <tr>
-            <th *ngFor="let label of lineChartLabels">{{label}}</th>
-          </tr>
-          <tr *ngFor="let d of lineChartData">
-            <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-          </tr>
-        </table>
-        <div>
-          <label>Base number: </label>
-          <input type="number" [(ngModel)]="base_num" placeholder="0">
-        </div>
-        <div>{{base_num}}</div>
-        <button (click)="randomize()">CLICK</button>
-      </div>
-    </div>
-  `
+  templateUrl: './line-chart-demo.component.html'
 })
 export class LineChartDemoComponent {
   // lineChart
@@ -87,9 +47,13 @@ export class LineChartDemoComponent {
 
   public base_num: number = 100;
 
-  constructor(){
-     console.log("hell");
-    }
+  // The details currently being displayed.
+  creditCardDetails: CreditCardDetails;
+
+  constructor() {
+    // Create initial credit card details.
+    this.creditCardDetails = new CreditCardDetails(10000, 12*10, 30, 5000, 4000, 0.04);
+  }
 
   public randomize(): void {
     let _lineChartData: Array<any> = new Array(this.lineChartData.length);
@@ -103,6 +67,10 @@ export class LineChartDemoComponent {
     this.lineChartData = _lineChartData;
   }
 
+  public onSubmit(): void {
+    console.log(this.creditCardDetails);
+  }
+
   // events
   public chartClicked(e: any): void {
     console.log(e);
@@ -111,4 +79,7 @@ export class LineChartDemoComponent {
   public chartHovered(e: any): void {
     console.log(e);
   }
+
+  // TODO: Remove this when we're done
+  get diagnostic() { return JSON.stringify(this.creditCardDetails); }
 }
