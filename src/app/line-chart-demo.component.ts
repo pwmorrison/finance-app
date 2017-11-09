@@ -55,17 +55,34 @@ export class LineChartDemoComponent {
     this.creditCardDetails = new CreditCardDetails(10000, 12*10, 30, 5000, 4000, 0.04);
   }
 
-  public randomize(): void {
-    let _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = { data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label };
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1) + this.base_num;
-        console.log(_lineChartData[i].data[j])
+  public randomize_fn(numSeries: number, numPoints: number, labels: string[], base_num: number): Array<any> {
+    let _lineChartData: Array<any> = new Array(numSeries);
+    for (let i = 0; i < numSeries; i++) {
+      _lineChartData[i] = { data: new Array(numPoints), label: labels[i] };
+      for (let j = 0; j < numPoints; j++) {
+        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1) + base_num;
+        //console.log(_lineChartData[i].data[j])
       }
     }
-    this.lineChartData = _lineChartData;
+    return _lineChartData;
   }
+
+  public randomize(): void {
+    this.lineChartData = this.randomize_fn(this.lineChartData.length, this.lineChartData[0].data.length,
+      ['A', 'B', 'C'], this.base_num);
+  }
+
+  // public randomize(): void {
+  //   let _lineChartData: Array<any> = new Array(this.lineChartData.length);
+  //   for (let i = 0; i < this.lineChartData.length; i++) {
+  //     _lineChartData[i] = { data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label };
+  //     for (let j = 0; j < this.lineChartData[i].data.length; j++) {
+  //       _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1) + this.base_num;
+  //       console.log(_lineChartData[i].data[j])
+  //     }
+  //   }
+  //   this.lineChartData = _lineChartData;
+  // }
 
   public onSubmit(): void {
     console.log(this.creditCardDetails);
