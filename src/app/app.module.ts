@@ -8,7 +8,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { LineChartDemoComponent } from './line-chart-demo.component';
 
-import { CreditCardService } from './credit-card.service';
+import { CreditCardService } from './credit-card/credit-card.service';
 
 @NgModule({
   declarations: [

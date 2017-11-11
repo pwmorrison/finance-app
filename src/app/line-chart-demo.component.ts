@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CreditCardDetails } from './credit-card-details';
-import { CreditCardService } from './credit-card.service'
+import { CreditCardService } from './credit-card/credit-card.service'
 
 @Component({
   selector: 'line-chart-demo',
