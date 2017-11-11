@@ -75,7 +75,7 @@ export class CreditCardService {
     return _lineChartData;
   }
 
-  getRandomData(baseNum: number = 100): Array<any> {
-    return this.randomize(3, 10, ['A', 'B', 'C'], baseNum);
+  getRandomData(numSeries: number, numPoints: number, labels: string[], baseNum: number = 100): Array<any> {
+    return this.randomize(numSeries, numPoints, labels, baseNum);
   }
 }

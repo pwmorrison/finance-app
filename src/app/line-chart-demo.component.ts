@@ -55,33 +55,47 @@ export class LineChartDemoComponent {
 
   constructor(private creditCardService: CreditCardService) {
     // Create initial credit card details.
-    this.creditCardDetails = new CreditCardDetails(10000, 12*10, 30, 5000, 4000, 0.04);
+    this.creditCardDetails = new CreditCardDetails(10000, 12*1, 30, 5000, 4000, 0.04);
   }
 
   ngOnInit() {
-    this.randomize();
-  }
-
-  public randomize_fn(numSeries: number, numPoints: number, labels: string[], base_num: number): Array<any> {
-    let _lineChartData: Array<any> = new Array(numSeries);
-    for (let i = 0; i < numSeries; i++) {
-      _lineChartData[i] = { data: new Array(numPoints), label: labels[i] };
-      for (let j = 0; j < numPoints; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1) + base_num;
-        //console.log(_lineChartData[i].data[j])
-      }
-    }
-    return _lineChartData;
+    // this.randomize();
+    this.createChartData();
   }
 
   public randomize(): void {
-    //this.lineChartData = this.randomize_fn(this.lineChartData.length, this.lineChartData[0].data.length,
-    //  ['A', 'B', 'C'], this.base_num);
-    this.lineChartData = this.creditCardService.getRandomData(this.base_num);
+    this.lineChartData = this.creditCardService.getRandomData(3, 10, ['A', 'B', 'C'], this.base_num);
+  }
+
+  public createChartData(): void {
+    let details = this.creditCardDetails;
+    console.log(details);
+    // Simulate this data.
+    let bankAccountHistory = this.creditCardService.simulatePeriod(
+      details.initial_bank_account_balance,
+      details.timeframe,
+      details.days_per_month,
+      details.pay,
+      details.costs,
+      null, // credit card
+      details.interest_rate
+    );
+    let numSeries = 1;
+    let numPoints = bankAccountHistory.length
+    let _lineChartData: Array<any> = new Array(numSeries);
+    _lineChartData[0] = { data: bankAccountHistory, label: "Banks account balance" };
+
+    this.lineChartData = _lineChartData;
+
+    let _lineChartLabels: Array<any> = new Array(numPoints);
+    for (let i = 0; i < numPoints; i++) {
+      _lineChartLabels[i] = i;
+    }
+    this.lineChartLabels = _lineChartLabels;
   }
 
   public onSubmit(): void {
-    console.log(this.creditCardDetails);
+    this.createChartData();
   }
 
   // events
@@ -94,5 +108,7 @@ export class LineChartDemoComponent {
   }
 
   // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.creditCardDetails); }
+  get diagnostic() {
+    return "";//JSON.stringify(this.creditCardDetails); 
+  }
 }
