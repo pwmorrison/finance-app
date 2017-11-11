@@ -1,37 +1,52 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h3>Credit card details</h3>
+      <h3>Your details</h3>
       {{ diagnostic }}
       <form #creditCardForm="ngForm">
         <div class="form-group">
           <label for="initial_bank_account_balance">Initial bank account balance</label>
-          <input type="number" class="form-control" id="initial_bank_account_balance" required
-           [(ngModel)]="creditCardDetails.initial_bank_account_balance" name="initial_bank_account_balance">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="number" min="0" step="100" class="form-control" id="initial_bank_account_balance" required
+            [(ngModel)]="creditCardDetails.initial_bank_account_balance" name="initial_bank_account_balance">
+            <div class="input-group-addon">$</div>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="timeframe">Timeframe</label>
-          <input type="number" class="form-control" id="timeframe" required
-          [(ngModel)]="creditCardDetails.timeframe" name="timeframe">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="number" min="1" step="1" class="form-control" id="timeframe" required
+            [(ngModel)]="creditCardDetails.timeframe" name="timeframe">
+            <div class="input-group-addon">months</div>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="pay">Pay</label>
-          <input type="number" class="form-control" id="pay" required
-          [(ngModel)]="creditCardDetails.pay" name="pay">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="number" min="0" step="100" class="form-control" id="pay" required
+            [(ngModel)]="creditCardDetails.pay" name="pay">
+            <div class="input-group-addon">$ per month</div>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="costs">Costs</label>
-          <input type="number" class="form-control" id="costs" required
-          [(ngModel)]="creditCardDetails.costs" name="costs">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="number" step="100" class="form-control" id="costs" required
+            [(ngModel)]="creditCardDetails.costs" name="costs">
+            <div class="input-group-addon">$ per month</div>
+          </div>
         </div>
 
         <div class="form-group">
-          <label for="interest_rate">Interest rate</label>
-          <input type="number" class="form-control" id="interest_rate" required
-          [(ngModel)]="creditCardDetails.interest_rate" name="interest_rate">
+          <label for="interest_rate">Interest rate for bank account</label>
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="number" min="0" step="0.1" class="form-control" id="interest_rate" required
+            [(ngModel)]="creditCardDetails.interest_rate" name="interest_rate">
+            <div class="input-group-addon">%</div>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>

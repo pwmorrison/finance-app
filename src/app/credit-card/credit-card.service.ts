@@ -7,12 +7,18 @@ export class CreditCardService {
   constructor() { }
 
   simulatePeriod(initialBankAccountBalance: number, timeframe: number, daysPerMonth: number, pay: number,
-  costs: number, creditCard: CreditCard, interestRate: number): Array<number> {
+  costs: number, useCreditCard: boolean, interestRate: number): Array<number> {
     // Simulates the given period.
     let costsPerDay: number = costs / daysPerMonth;
     let bankAccount: number = initialBankAccountBalance;
-    //let bankAccountHistory: number[] = new Array(timeframe * daysPerMonth);
+    interestRate /= 100;
     let bankAccountHistory: number[] = [];
+
+    // Create a credit card if specified.
+    let creditCard = null;
+    if (useCreditCard) {
+      creditCard = new CreditCard(daysPerMonth);
+    }
 
     for (let month = 0; month < timeframe; month++) {
       // Earn interest on the current account balance.

@@ -23,18 +23,17 @@ describe('CreditCardService', () => {
     let daysPerMonth = 30;  // simplifying assumption
     let pay = 5000;  // per month
     let costs = 4000;  // per month
-    let interestRate = 0.04;  // 4%, currently common for home loans.
+    let interestRate = 4.0;  // 4%, currently common for home loans.
 
     // Without credit card.
     let bankAccountHistory = service.simulatePeriod(
-        initialBankAccountBalance, timeframe, daysPerMonth, pay, costs, null, interestRate);
+        initialBankAccountBalance, timeframe, daysPerMonth, pay, costs, false, interestRate);
     //console.log(bankAccountHistory);
     //console.log(bankAccountHistory.length);
 
     // With credit card.
-    let creditCard = new CreditCard(daysPerMonth);
     bankAccountHistory = service.simulatePeriod(
-        initialBankAccountBalance, timeframe, daysPerMonth, pay, costs, creditCard, interestRate);
+        initialBankAccountBalance, timeframe, daysPerMonth, pay, costs, true, interestRate);
     console.log(bankAccountHistory);
     console.log(bankAccountHistory.length);
   }));

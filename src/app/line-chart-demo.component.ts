@@ -17,7 +17,12 @@ export class LineChartDemoComponent {
   // ];
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: any = {
-    responsive: true
+    responsive: true,
+    elements: {
+      line: {
+          tension: 0, // disables bezier curves
+      }
+    }
   };
   public lineChartColors: Array<any> = [
     { // grey
@@ -55,7 +60,7 @@ export class LineChartDemoComponent {
 
   constructor(private creditCardService: CreditCardService) {
     // Create initial credit card details.
-    this.creditCardDetails = new CreditCardDetails(10000, 12*1, 30, 5000, 4000, 0.04);
+    this.creditCardDetails = new CreditCardDetails(10000, 12*1, 30, 5000, 4000, 4.0);
   }
 
   ngOnInit() {
@@ -70,20 +75,35 @@ export class LineChartDemoComponent {
   public createChartData(): void {
     let details = this.creditCardDetails;
     console.log(details);
-    // Simulate this data.
-    let bankAccountHistory = this.creditCardService.simulatePeriod(
+
+    // Simulate without a credit card.
+    let bankAccountHistoryNoCC = this.creditCardService.simulatePeriod(
       details.initial_bank_account_balance,
       details.timeframe,
       details.days_per_month,
       details.pay,
       details.costs,
-      null, // credit card
+      false, // credit card
       details.interest_rate
     );
-    let numSeries = 1;
-    let numPoints = bankAccountHistory.length
+
+    // Simulate with a credit card.
+    let bankAccountHistoryCC = this.creditCardService.simulatePeriod(
+      details.initial_bank_account_balance,
+      details.timeframe,
+      details.days_per_month,
+      details.pay,
+      details.costs,
+      true, // credit card
+      details.interest_rate
+    );
+
+    let numSeries = 2;
+    let numPoints = bankAccountHistoryNoCC.length
+
     let _lineChartData: Array<any> = new Array(numSeries);
-    _lineChartData[0] = { data: bankAccountHistory, label: "Banks account balance" };
+    _lineChartData[0] = { data: bankAccountHistoryNoCC, label: "Without a credit card", fill: false };
+    _lineChartData[1] = { data: bankAccountHistoryCC, label: "With a credit card", fill:false };
 
     this.lineChartData = _lineChartData;
 
@@ -107,8 +127,7 @@ export class LineChartDemoComponent {
     console.log(e);
   }
 
-  // TODO: Remove this when we're done
   get diagnostic() {
-    return "";//JSON.stringify(this.creditCardDetails); 
+    return "";//JSON.stringify(this.creditCardDetails);
   }
 }
