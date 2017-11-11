@@ -36,7 +36,7 @@ export class LineChartDemoComponent {
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
+      pointBorderColor: 'rgba(148,159,177,1)',//'#fff', // A white border looks bad with many points.
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
@@ -44,7 +44,7 @@ export class LineChartDemoComponent {
       backgroundColor: 'rgba(77,83,96,0.2)',
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
+      pointBorderColor: 'rgba(77,83,96,1)',//'#fff', // A white border looks bad with many points.
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
@@ -60,6 +60,7 @@ export class LineChartDemoComponent {
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
 
+  // Temporary number for random calculations.
   public base_num: number = 100;
 
   // The details currently being displayed.
@@ -114,11 +115,13 @@ export class LineChartDemoComponent {
 
     this.lineChartData = _lineChartData;
 
+    this.lineChartLabels.length = 0;
     let _lineChartLabels: Array<any> = new Array(numPoints);
     for (let i = 0; i < numPoints; i++) {
       _lineChartLabels[i] = i;
+      this.lineChartLabels.push(i);
     }
-    this.lineChartLabels = _lineChartLabels;
+    // this.lineChartLabels = _lineChartLabels;
   }
 
   public onSubmit(): void {
