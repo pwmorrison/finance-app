@@ -1,98 +1,104 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <h3>Your details</h3>
-      {{ diagnostic }}
-      <form #creditCardForm="ngForm">
-        <div class="form-group">
-          <label for="initial_bank_account_balance">Initial bank account balance</label>
-          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="number" min="0" step="100" class="form-control" id="initial_bank_account_balance" required
-            [(ngModel)]="creditCardDetails.initial_bank_account_balance" name="initial_bank_account_balance">
-            <div class="input-group-addon">$</div>
+<!doctype html>
+<html lang="en">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <h3>Your details</h3>
+        {{ diagnostic }}
+        <form #creditCardForm="ngForm">
+          <div class="form-group">
+            <label for="initial_bank_account_balance">Initial bank account balance</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="0" step="100" class="form-control" id="initial_bank_account_balance" required
+              [(ngModel)]="creditCardDetails.initial_bank_account_balance" name="initial_bank_account_balance">
+              <div class="input-group-addon">$</div>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="timeframe">Timeframe</label>
-          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="number" min="1" step="1" class="form-control" id="timeframe" required
-            [(ngModel)]="creditCardDetails.timeframe" name="timeframe">
-            <div class="input-group-addon">months</div>
+          <div class="form-group">
+            <label for="timeframe">Timeframe</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="1" step="1" class="form-control" id="timeframe" required
+              [(ngModel)]="creditCardDetails.timeframe" name="timeframe">
+              <div class="input-group-addon">months</div>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="pay">Income</label>
-          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="number" min="0" step="100" class="form-control" id="pay" required
-            [(ngModel)]="creditCardDetails.pay" name="pay">
-            <div class="input-group-addon">$ per month</div>
+          <div class="form-group">
+            <label for="pay">Income</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="0" step="100" class="form-control" id="pay" required
+              [(ngModel)]="creditCardDetails.pay" name="pay">
+              <div class="input-group-addon">$ per month</div>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="costs">Costs</label>
-          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="number" step="100" class="form-control" id="costs" required
-            [(ngModel)]="creditCardDetails.costs" name="costs">
-            <div class="input-group-addon">$ per month</div>
+          <div class="form-group">
+            <label for="costs">Costs</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" step="100" class="form-control" id="costs" required
+              [(ngModel)]="creditCardDetails.costs" name="costs">
+              <div class="input-group-addon">$ per month</div>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="interest_rate">Interest rate for bank account</label>
-          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="number" min="0" step="0.1" class="form-control" id="interest_rate" required
-            [(ngModel)]="creditCardDetails.interest_rate" name="interest_rate">
-            <div class="input-group-addon">%</div>
+          <div class="form-group">
+            <label for="interest_rate">Interest rate for bank account</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="0" step="0.1" class="form-control" id="interest_rate" required
+              [(ngModel)]="creditCardDetails.interest_rate" name="interest_rate">
+              <div class="input-group-addon">%</div>
+            </div>
           </div>
+
+          <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
+
+        </form>
+
+        <!--<div>
+          <label>Base number: </label>
+          <input type="number" [(ngModel)]="base_num" placeholder="0">
         </div>
+        <div>{{base_num}}</div>
+        <button (click)="randomize()">CLICK</button>-->
 
-        <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
-
-      </form>
-
-      <!--<div>
-        <label>Base number: </label>
-        <input type="number" [(ngModel)]="base_num" placeholder="0">
       </div>
-      <div>{{base_num}}</div>
-      <button (click)="randomize()">CLICK</button>-->
-
-    </div>
-    <div class="col-md-9">
-      <div style="display: block;">
-      <canvas baseChart width="100" height="50"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
-      </div>
-      <!--<table class="table table-responsive table-condensed">
-        <tr>
-          <th *ngFor="let label of lineChartLabels">{{label}}</th>
-        </tr>
-        <tr *ngFor="let d of lineChartData">
-          <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-        </tr>
-      </table>-->
-      <table class="table table-responsive table-condensed">
-        <thead>
-          <th scope="col">Final balance without a credit card</th>
-          <th scope="col">Final balance with a credit card</th>
-        </thead>
-        <tbody>
+      <div class="col-md-9">
+        <div style="display: block;">
+        <canvas baseChart width="100" height="50"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        <!--<table class="table table-responsive table-condensed">
           <tr>
-            <td>${{ finalBalanceNoCC }}</td>
-            <td>${{ finalBalanceCC }}</td>
+            <th *ngFor="let label of lineChartLabels">{{label}}</th>
           </tr>
-        </tbody>
-      </table>
+          <tr *ngFor="let d of lineChartData">
+            <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+          </tr>
+        </table>-->
+        <table class="table table-responsive table-condensed">
+          <thead>
+            <th scope="col">Final balance without a credit card</th>
+            <th scope="col">Final balance with a credit card</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${{ finalBalanceNoCC }}</td>
+              <td>${{ finalBalanceCC }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
+  <div class='container'>
+    <disqus [identifier]="pageId"></disqus>
+  </div>
+</html>

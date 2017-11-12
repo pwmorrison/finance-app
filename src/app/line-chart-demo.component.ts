@@ -80,6 +80,8 @@ export class LineChartDemoComponent {
   public finalBalanceNoCC = null;
   public finalBalanceCC = null;
 
+  public pageId = '/credit-card';
+
   // The details currently being displayed.
   creditCardDetails: CreditCardDetails;
 
