@@ -49,8 +49,7 @@ export class CreditCardService {
           creditCard.payBalance();
         }
 
-        //bankAccountHistory[month * daysPerMonth + daysPerMonth] = bankAccount;
-        bankAccountHistory.push(bankAccount);
+        bankAccountHistory.push(parseFloat(bankAccount.toFixed(2)));
       }
     }
 
@@ -59,11 +58,11 @@ export class CreditCardService {
       let balance = creditCard.getBalance();
       bankAccount -= balance;
       creditCard.payBalance();
-      bankAccountHistory.push(bankAccount);
+      bankAccountHistory.push(parseFloat(bankAccount.toFixed(2)));
     }
     else {
       // Make a corresponding entry, so the history lengths are equal (for plotting).
-      bankAccountHistory.push(bankAccountHistory[bankAccountHistory.length - 1]);
+      bankAccountHistory.push(parseFloat(bankAccountHistory[bankAccountHistory.length - 1].toFixed(2)));
     }
 
     return bankAccountHistory;

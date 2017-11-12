@@ -18,6 +18,20 @@ export class LineChartDemoComponent {
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: any = {
     responsive: true,
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Balance, $'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Day'
+        }
+      }]
+    },
     elements: {
       line: {
           tension: 0, // disables bezier curves
@@ -62,6 +76,9 @@ export class LineChartDemoComponent {
 
   // Temporary number for random calculations.
   public base_num: number = 100;
+
+  public finalBalanceNoCC = null;
+  public finalBalanceCC = null;
 
   // The details currently being displayed.
   creditCardDetails: CreditCardDetails;
@@ -115,13 +132,15 @@ export class LineChartDemoComponent {
 
     this.lineChartData = _lineChartData;
 
+    // Update the x-axis labels.
+    // Need to do it this way so they are updated.
     this.lineChartLabels.length = 0;
-    let _lineChartLabels: Array<any> = new Array(numPoints);
     for (let i = 0; i < numPoints; i++) {
-      _lineChartLabels[i] = i;
       this.lineChartLabels.push(i);
     }
-    // this.lineChartLabels = _lineChartLabels;
+
+    this.finalBalanceNoCC = bankAccountHistoryNoCC[bankAccountHistoryNoCC.length - 1];
+    this.finalBalanceCC = bankAccountHistoryCC[bankAccountHistoryCC.length - 1];
   }
 
   public onSubmit(): void {
