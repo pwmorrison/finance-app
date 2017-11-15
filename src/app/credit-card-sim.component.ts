@@ -3,10 +3,10 @@ import { CreditCardDetails } from './credit-card-details';
 import { CreditCardService } from './credit-card/credit-card.service'
 
 @Component({
-  selector: 'line-chart-demo',
-  templateUrl: './line-chart-demo.component.html'
+  selector: 'credit-card-sim',
+  templateUrl: './credit-card-sim.component.html'
 })
-export class LineChartDemoComponent {
+export class CreditCardSimComponent {
 
   // lineChart
   public lineChartData: Array<any>;
