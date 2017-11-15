@@ -8,6 +8,8 @@ import { CreditCardService } from './credit-card/credit-card.service'
 })
 export class CreditCardSimComponent {
 
+  title = 'Credit card simulator';
+
   // lineChart
   public lineChartData: Array<any>;
   // public lineChartData: Array<any> = [

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeLoanCalcComponent implements OnInit {
 
+  title = 'Home loan calculator';
+
   constructor() { }
 
   ngOnInit() {
