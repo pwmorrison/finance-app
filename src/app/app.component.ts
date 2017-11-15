@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import { Hero } from './hero';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +7,4 @@ import { Hero } from './hero';
 })
 export class AppComponent {
   title = 'Credit card simulator';
-
-  selectedHero: Hero = { id: 20, name: 'Tornado' };
 }
