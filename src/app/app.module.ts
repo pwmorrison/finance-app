@@ -13,13 +13,15 @@ import { HeroDetailComponent } from './hero-detail.component';
 import { CreditCardService } from './credit-card/credit-card.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HeroesComponent } from './heroes.component';
+import { HomeLoanCalcComponent } from './home-loan-calc.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreditCardSimComponent,
     HeroDetailComponent,
-    HeroesComponent
+    HeroesComponent,
+    HomeLoanCalcComponent
   ],
   imports: [
     BrowserModule,
