@@ -34,8 +34,8 @@ describe('CreditCardService', () => {
     // With credit card.
     bankAccountHistory = service.simulatePeriod(
         initialBankAccountBalance, timeframe, daysPerMonth, pay, costs, true, interestRate);
-    console.log(bankAccountHistory);
-    console.log(bankAccountHistory.length);
+    // console.log(bankAccountHistory);
+    // console.log(bankAccountHistory.length);
   }));
 
 });

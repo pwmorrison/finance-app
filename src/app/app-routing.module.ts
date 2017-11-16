@@ -7,7 +7,7 @@ import { HomeLoanCalcComponent } from './home-loan-calc.component';
 const routes: Routes = [
   { path: 'creditcard', component: CreditCardSimComponent },
   { path: 'homeloan', component: HomeLoanCalcComponent },
-  { path: '', redirectTo: 'creditcard', pathMatch: 'full' },
+  { path: '', redirectTo: '/creditcard', pathMatch: 'full' },
 ];
 
 @NgModule({
