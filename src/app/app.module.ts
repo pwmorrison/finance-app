@@ -9,6 +9,7 @@ import { DisqusModule } from "ngx-disqus";
 import { AppComponent } from './app.component';
 
 import { CreditCardService } from './credit-card/credit-card.service';
+import { HomeLoanService } from './home-loan/home-loan.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeLoanCalcComponent } from './home-loan-calc.component';
 import { CreditCardSimComponent } from './credit-card-sim.component';
@@ -27,7 +28,7 @@ import { CreditCardSimComponent } from './credit-card-sim.component';
     DisqusModule.forRoot('finance-app'),
     AppRoutingModule
   ],
-  providers: [CreditCardService],
+  providers: [CreditCardService, HomeLoanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
