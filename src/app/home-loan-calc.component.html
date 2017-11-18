@@ -9,50 +9,50 @@
     <div class="row">
       <div class="col-md-3">
         <h3>Your details</h3>
-        {{ diagnostic }}
+        <!--{{ diagnostic }}-->
         <form #creditCardForm="ngForm">
           <div class="form-group">
-            <label for="initial_bank_account_balance">Initial bank account balance</label>
+            <label for="initialAmount">Initial amount</label>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <input type="number" min="0" step="100" class="form-control" id="initial_bank_account_balance" required
-              [(ngModel)]="homeLoanDetails.initial_bank_account_balance" name="initial_bank_account_balance">
+              <input type="number" min="0" step="100" class="form-control" id="initialAmounts" required
+              [(ngModel)]="homeLoanDetails.initialAmount" name="initialAmount">
               <div class="input-group-addon">$</div>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="timeframe">Timeframe</label>
+            <label for="period">Period</label>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <input type="number" min="1" step="1" class="form-control" id="timeframe" required
-              [(ngModel)]="homeLoanDetails.timeframe" name="timeframe">
-              <div class="input-group-addon">months</div>
+              <input type="number" min="1" step="1" class="form-control" id="period" required
+              [(ngModel)]="homeLoanDetails.period" name="period">
+              <div class="input-group-addon">years</div>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="pay">Income</label>
+            <label for="interestRate">Interest rate</label>
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <input type="number" min="0" step="100" class="form-control" id="pay" required
-              [(ngModel)]="homeLoanDetails.pay" name="pay">
-              <div class="input-group-addon">$ per month</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="costs">Costs</label>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <input type="number" step="100" class="form-control" id="costs" required
-              [(ngModel)]="homeLoanDetails.costs" name="costs">
-              <div class="input-group-addon">$ per month</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="interest_rate">Interest rate for bank account</label>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <input type="number" min="0" step="0.1" class="form-control" id="interest_rate" required
-              [(ngModel)]="homeLoanDetails.interest_rate" name="interest_rate">
+              <input type="number" min="0" step="0.1" class="form-control" id="interestRate" required
+              [(ngModel)]="homeLoanDetails.interestRate" name="interestRate">
               <div class="input-group-addon">%</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="interestOnlyPeriod">Interest only period</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="0" step="1" class="form-control" id="interestOnlyPeriod" required
+              [(ngModel)]="homeLoanDetails.interestOnlyPeriod" name="interestOnlyPeriod">
+              <div class="input-group-addon">years</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="offsetAmount">Offset amount</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="0" step="100" class="form-control" id="offsetAmount" required
+              [(ngModel)]="homeLoanDetails.offsetAmount" name="offsetAmount">
+              <div class="input-group-addon">$</div>
             </div>
           </div>
 
