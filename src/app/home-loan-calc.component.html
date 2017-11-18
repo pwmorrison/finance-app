@@ -87,6 +87,14 @@
               <th scope="row">Total interest paid</th>
               <td>${{ totalInterestPaid }}</td>
             </tr>
+            <tr *ngIf="monthlyPaymentIO">
+              <th scope="row">Monthly interest-only payments</th>
+              <td>${{ monthlyPaymentIO }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Monthly principal and interest payments</th>
+              <td>${{ monthlyPaymentPI }}</td>
+            </tr>
           </tbody>
         </table>
       </div>

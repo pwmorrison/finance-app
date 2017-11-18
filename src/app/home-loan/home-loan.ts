@@ -56,15 +56,15 @@ export class HomeLoan {
     for(let paymentNum = 0; paymentNum < numPayments; paymentNum++) {
 
       let interest = this.computeMonthlyInterest(principal, this.interestRate, this.offsetAmount);
-      monthlyInterestCharges.push(interest);
+      monthlyInterestCharges.push(parseFloat(interest.toFixed(2)));
 
-      monthlyPrincipal.push(principal)
+      monthlyPrincipal.push(parseFloat(principal.toFixed(2)))
       let principalPaid;
       let payment;
       if (paymentNum < numIOPayments) {
         // We're in the IO period.
         principalPaid = 0;
-        monthlyPayments.push(this.monthlyPaymentIO);
+        monthlyPayments.push(parseFloat(this.monthlyPaymentIO.toFixed(2)));
       }
       else {
         // We're paying principal.
@@ -75,7 +75,7 @@ export class HomeLoan {
           payment -= (principalPaid - principal);
           principalPaid = principal;
         }
-        monthlyPayments.push(payment);
+        monthlyPayments.push(parseFloat(payment.toFixed(2)));
       }
 
       principal -= principalPaid;
@@ -95,7 +95,9 @@ export class HomeLoan {
     return {
       'monthlyPrincipal': monthlyPrincipal,
       'monthlyInterestCharges': monthlyInterestCharges,
-      'monthlyPayments': monthlyPayments
+      'monthlyPayments': monthlyPayments,
+      'monthlyPaymentIO': this.monthlyPaymentIO,
+      'monthlyPaymentPI': this.monthlyPaymentPI
     };
   }
 }

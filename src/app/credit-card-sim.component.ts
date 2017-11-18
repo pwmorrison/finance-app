@@ -12,7 +12,8 @@ export class CreditCardSimComponent {
   summary = 'Learn the financial benefits of using a credit card for day-to-day expenses, so that your cash is\
     earning interest for as long as possible.';
   assumptions = 'Assume the credit card is paid off in full on the due date. \
-    \nCosts are spread out evenly over all days.';
+    \nCosts are spread out evenly over all days.\
+    \nReward points are not taken into account.';
 
   // lineChart
   public lineChartData: Array<any>;

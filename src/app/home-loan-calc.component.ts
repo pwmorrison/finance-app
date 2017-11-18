@@ -85,7 +85,8 @@ export class HomeLoanCalcComponent {
   public base_num: number = 100;
 
   public totalInterestPaid = null;
-  public finalBalanceCC = null;
+  public monthlyPaymentIO = undefined;
+  public monthlyPaymentPI = null;
 
   public pageId = '/home-loan';
 
@@ -123,6 +124,8 @@ export class HomeLoanCalcComponent {
     let monthlyPrincipal = homeLoanData.monthlyPrincipal;
     let monthlyInterestCharges = homeLoanData.monthlyInterestCharges;
     let monthlyPayments = homeLoanData.monthlyPayments;
+    let monthlyPaymentIO = homeLoanData.monthlyPaymentIO;
+    let monthlyPaymentPI = homeLoanData.monthlyPaymentPI;
 
     let numSeries = 1;
     let numPoints = monthlyPrincipal.length
@@ -145,8 +148,14 @@ export class HomeLoanCalcComponent {
       totalInterestPaid += monthlyInterestCharges[i];
     }
 
-    this.totalInterestPaid = totalInterestPaid;
-    this.finalBalanceCC = 0;//bankAccountHistoryCC[bankAccountHistoryCC.length - 1];
+    this.totalInterestPaid = parseFloat(totalInterestPaid.toFixed(2));
+    if (details.interestOnlyPeriod > 0) {
+      this.monthlyPaymentIO = parseFloat(monthlyPaymentIO.toFixed(2));
+    } else {
+      this.monthlyPaymentIO = undefined;
+    }
+
+    this.monthlyPaymentPI = parseFloat(monthlyPaymentPI.toFixed(2));
   }
 
   public onSubmit(): void {
