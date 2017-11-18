@@ -18,6 +18,7 @@ import { HomeLoanService } from './home-loan/home-loan.service'
 export class HomeLoanCalcComponent {
 
   title = 'Home loan calculator';
+  summary = 'A simple home loan simulator.';
 
   // lineChart
   public lineChartData: Array<any>;
