@@ -2,6 +2,15 @@ import { Component } from '@angular/core';
 import { HomeLoanDetails } from './home-loan-details';
 import { HomeLoanService } from './home-loan/home-loan.service'
 
+// TODO:
+// Monthly / yearly fees (input)
+// Show the
+// Loan comparison
+// Extra repayments per month
+// Helpful comments (e.g. "You will save $X if you switch to P+I")
+// "You will save $X, if you pay an extra $X per month."
+// "You will pay off the loan in X years X months, if you pay an extra $X per month."
+
 @Component({
   selector: 'home-loan-calc',
   templateUrl: './home-loan-calc.component.html'
@@ -74,7 +83,7 @@ export class HomeLoanCalcComponent {
   // Temporary number for random calculations.
   public base_num: number = 100;
 
-  public finalBalanceNoCC = null;
+  public totalInterestPaid = null;
   public finalBalanceCC = null;
 
   public pageId = '/home-loan';
@@ -102,13 +111,17 @@ export class HomeLoanCalcComponent {
     let details = this.homeLoanDetails;
     console.log(details);
 
-    let monthlyPrincipal = this.homeLoanService.simulatePeriod(
+    let homeLoanData = this.homeLoanService.simulatePeriod(
       details.initialAmount,
       details.period,
       details.interestRate,
       details.interestOnlyPeriod,
       details.offsetAmount
     );
+
+    let monthlyPrincipal = homeLoanData.monthlyPrincipal;
+    let monthlyInterestCharges = homeLoanData.monthlyInterestCharges;
+    let monthlyPayments = homeLoanData.monthlyPayments;
 
     let numSeries = 1;
     let numPoints = monthlyPrincipal.length
@@ -125,7 +138,13 @@ export class HomeLoanCalcComponent {
       this.lineChartLabels.push(i);
     }
 
-    this.finalBalanceNoCC = 0;//bankAccountHistoryNoCC[bankAccountHistoryNoCC.length - 1];
+    // Determine the total interest paid.
+    let totalInterestPaid = 0;
+    for (let i = 0; i < monthlyInterestCharges.length; i++) {
+      totalInterestPaid += monthlyInterestCharges[i];
+    }
+
+    this.totalInterestPaid = totalInterestPaid;
     this.finalBalanceCC = 0;//bankAccountHistoryCC[bankAccountHistoryCC.length - 1];
   }
 
