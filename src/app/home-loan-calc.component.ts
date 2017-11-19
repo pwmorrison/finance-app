@@ -154,7 +154,6 @@ export class HomeLoanCalcComponent {
     } else {
       this.monthlyPaymentIO = undefined;
     }
-
     this.monthlyPaymentPI = parseFloat(monthlyPaymentPI.toFixed(2));
   }
 
