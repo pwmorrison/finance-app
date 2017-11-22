@@ -60,6 +60,15 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label for="interestFreePeriod">Interest free period (e.g. 44 or 55 days)</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <input type="number" min="0" step="1" class="form-control" id="interestFreePeriod" required
+              [(ngModel)]="creditCardDetails.interestFreePeriod" name="interestFreePeriod">
+              <div class="input-group-addon">days</div>
+            </div>
+          </div>
+
           <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
 
         </form>
@@ -108,6 +117,10 @@
     </div>
   </div>
   <div class='container'>
+    <hr>
+    <p>
+      Any feedback is welcome!
+    </p>
     <disqus [identifier]="pageId"></disqus>
   </div>
 </html>

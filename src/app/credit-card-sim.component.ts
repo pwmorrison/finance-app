@@ -13,7 +13,8 @@ export class CreditCardSimComponent {
     earning interest for as long as possible.';
   assumptions = 'Assume the credit card is paid off in full on the due date. \
     \nCosts are spread out evenly over all days.\
-    \nReward points are not taken into account.';
+    \nReward points are not taken into account.\
+    \nNote, this is a very basic model of real life. Take it with a grain of salt and do you own calculations.';
 
   // lineChart
   public lineChartData: Array<any>;
@@ -89,7 +90,7 @@ export class CreditCardSimComponent {
 
   constructor(private creditCardService: CreditCardService) {
     // Create initial credit card details.
-    this.creditCardDetails = new CreditCardDetails(10000, 12*1, 30, 5000, 4000, 4.0);
+    this.creditCardDetails = new CreditCardDetails(10000, 12*1, 30, 5000, 4000, 4.0, 44);
   }
 
   ngOnInit() {
@@ -113,7 +114,8 @@ export class CreditCardSimComponent {
       details.pay,
       details.costs,
       false, // credit card
-      details.interest_rate
+      details.interest_rate,
+      details.interestFreePeriod
     );
 
     // Simulate with a credit card.
@@ -124,7 +126,8 @@ export class CreditCardSimComponent {
       details.pay,
       details.costs,
       true, // credit card
-      details.interest_rate
+      details.interest_rate,
+      details.interestFreePeriod
     );
 
     let numSeries = 2;

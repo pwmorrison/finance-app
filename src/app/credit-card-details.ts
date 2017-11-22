@@ -6,7 +6,8 @@ export class CreditCardDetails {
     public days_per_month: number, // simplifying assumption
     public pay: number, // per month
     public costs: number, // per month
-    public interest_rate: number // 4%, currently common for home loans.
+    public interest_rate: number, // 4%, currently common for home loans.
+    public interestFreePeriod: number
   ) {  }
 
 }

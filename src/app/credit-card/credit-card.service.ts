@@ -7,7 +7,7 @@ export class CreditCardService {
   constructor() { }
 
   simulatePeriod(initialBankAccountBalance: number, timeframe: number, daysPerMonth: number, pay: number,
-  costs: number, useCreditCard: boolean, interestRate: number): Array<number> {
+  costs: number, useCreditCard: boolean, interestRate: number, interestFreePeriod: number): Array<number> {
     // Simulates the given period.
     let costsPerDay: number = costs / daysPerMonth;
     let bankAccount: number = initialBankAccountBalance;
@@ -17,7 +17,7 @@ export class CreditCardService {
     // Create a credit card if specified.
     let creditCard = null;
     if (useCreditCard) {
-      creditCard = new CreditCard(daysPerMonth);
+      creditCard = new CreditCard(daysPerMonth, interestFreePeriod);
     }
 
     for (let month = 0; month < timeframe; month++) {
@@ -28,6 +28,7 @@ export class CreditCardService {
       bankAccount += pay;
       let dueDate = 0;
       if (creditCard != null) {
+        creditCard.newMonth();
         // Determine which day of this month to pay the credit card balance.
         dueDate = creditCard.getDueDate();
       }
@@ -35,7 +36,7 @@ export class CreditCardService {
         // Pay bills etc.
         if (creditCard != null) {
           // Use the credit card.
-          creditCard.makePurchases(costsPerDay);
+          creditCard.makePurchases(costsPerDay, day);
         }
         else {
           // Pay straight from the bank account.
@@ -44,9 +45,12 @@ export class CreditCardService {
 
         // Pay the credit card.
         if (creditCard != null && day == dueDate) {
-          let balance = creditCard.getBalance();
-          bankAccount -= balance;
-          creditCard.payBalance();
+          // let balance = creditCard.getBalance();
+          // bankAccount -= balance;
+          // creditCard.payBalance();
+          let amountOwing = creditCard.getAmountOwing();
+          bankAccount -= amountOwing;
+          creditCard.payAmountOwing();
         }
 
         bankAccountHistory.push(parseFloat(bankAccount.toFixed(2)));
