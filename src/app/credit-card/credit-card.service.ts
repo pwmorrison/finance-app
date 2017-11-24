@@ -21,9 +21,9 @@ export class CreditCardService {
     }
 
     for (let month = 0; month < timeframe; month++) {
-      // Earn interest on the current account balance.
-      let interest = (interestRate / 12) * bankAccount;
-      bankAccount += interest;
+      // // Earn interest on the current account balance.
+      // let interest = (interestRate / 12) * bankAccount;
+      // bankAccount += interest;
       // Get paid, assuming we get paid at the start of the month.
       bankAccount += pay;
       let dueDate = 0;
@@ -33,6 +33,10 @@ export class CreditCardService {
         dueDate = creditCard.getDueDate();
       }
       for(let day = 0; day < daysPerMonth; day++) {
+        // Earn interest on the current account balance.
+        let interest = (interestRate / 365) * bankAccount;
+        bankAccount += interest;
+
         // Pay bills etc.
         if (creditCard != null) {
           // Use the credit card.
