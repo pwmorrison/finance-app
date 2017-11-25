@@ -107,7 +107,7 @@ export class CreditCardSimComponent {
     console.log(details);
 
     // Simulate without a credit card.
-    let bankAccountHistoryNoCC = this.creditCardService.simulatePeriod(
+    let historyNoCC = this.creditCardService.simulatePeriod(
       details.initial_bank_account_balance,
       details.timeframe,
       details.days_per_month,
@@ -117,9 +117,10 @@ export class CreditCardSimComponent {
       details.interest_rate,
       details.interestFreePeriod
     );
+    let bankAccountHistoryNoCC = historyNoCC.bankAccountHistory;
 
     // Simulate with a credit card.
-    let bankAccountHistoryCC = this.creditCardService.simulatePeriod(
+    let historyCC = this.creditCardService.simulatePeriod(
       details.initial_bank_account_balance,
       details.timeframe,
       details.days_per_month,
@@ -129,6 +130,7 @@ export class CreditCardSimComponent {
       details.interest_rate,
       details.interestFreePeriod
     );
+    let bankAccountHistoryCC = historyCC.bankAccountHistory;
 
     let numSeries = 2;
     let numPoints = bankAccountHistoryNoCC.length

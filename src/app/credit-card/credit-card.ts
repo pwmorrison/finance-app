@@ -3,7 +3,7 @@ export class CreditCard {
 
   private _balance = 0;
 
-  // The amount owing at the due date, from the previous month.
+  // The amount that we've already returned, to be paid.
   private _amountOwing = 0;
 
   constructor(
@@ -18,7 +18,9 @@ export class CreditCard {
   newMonth() {
     // Let the credit card know that its a new month.
     // The amount owing at the next due date is the current balance.
-    this._amountOwing = this._balance;
+    let amountToPay = this._balance - this._amountOwing;
+    this._amountOwing += amountToPay;
+    return {amount: amountToPay, days: this.getDueDate()};
   }
 
   getBalance(): number {
@@ -31,16 +33,12 @@ export class CreditCard {
     this._amountOwing = 0;
   }
 
-  getAmountOwing(): number {
-    return this._amountOwing;
-  }
-
-  payAmountOwing() {
-    this._balance -= this._amountOwing;
-    this._amountOwing = 0;
+  payAmount(amount) {
+    this._balance -= amount;
+    this._amountOwing -= amount;
   }
 
   getDueDate(): number {
-    return this.interestFreePeriod - this.statementPeriod;
+    return Math.max(this.interestFreePeriod - this.statementPeriod, 0);
   }
 }

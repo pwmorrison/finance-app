@@ -7,12 +7,13 @@ export class CreditCardService {
   constructor() { }
 
   simulatePeriod(initialBankAccountBalance: number, timeframe: number, daysPerMonth: number, pay: number,
-  costs: number, useCreditCard: boolean, interestRate: number, interestFreePeriod: number): Array<number> {
+  costs: number, useCreditCard: boolean, interestRate: number, interestFreePeriod: number) {
     // Simulates the given period.
     let costsPerDay: number = costs / daysPerMonth;
     let bankAccount: number = initialBankAccountBalance;
     interestRate /= 100;
     let bankAccountHistory: number[] = [];
+    let creditCardHistory: number[] = [];
 
     // Create a credit card if specified.
     let creditCard = null;
@@ -20,15 +21,14 @@ export class CreditCardService {
       creditCard = new CreditCard(daysPerMonth, interestFreePeriod);
     }
 
+    let pendingCCPayments = [];
     for (let month = 0; month < timeframe; month++) {
-      // // Earn interest on the current account balance.
-      // let interest = (interestRate / 12) * bankAccount;
-      // bankAccount += interest;
       // Get paid, assuming we get paid at the start of the month.
       bankAccount += pay;
       let dueDate = 0;
       if (creditCard != null) {
-        creditCard.newMonth();
+        let nextPayment = creditCard.newMonth();
+        pendingCCPayments.push(nextPayment);
         // Determine which day of this month to pay the credit card balance.
         dueDate = creditCard.getDueDate();
       }
@@ -47,17 +47,29 @@ export class CreditCardService {
           bankAccount -= costsPerDay;
         }
 
-        // Pay the credit card.
-        if (creditCard != null && day == dueDate) {
-          // let balance = creditCard.getBalance();
-          // bankAccount -= balance;
-          // creditCard.payBalance();
-          let amountOwing = creditCard.getAmountOwing();
-          bankAccount -= amountOwing;
-          creditCard.payAmountOwing();
+        // Pay the credit card if required.
+        if (creditCard != null) {
+          // Pay each of the due credit card payments.
+          for (let i = 0; i < pendingCCPayments.length; i++) {
+            let pendingCCPayment = pendingCCPayments[i];
+            if (pendingCCPayment.days == 0) {
+              // This payment is due.
+              let amountDue = pendingCCPayment.amount;
+              bankAccount -= amountDue;
+              creditCard.payAmount(amountDue);
+              // pendingCCPayments.remove(pendingCCPayment);
+              pendingCCPayments.splice(i, 1)
+            } else {
+              // We're 1 day closer to the due date.
+              pendingCCPayment.days -= 1
+            }
+          }
         }
 
         bankAccountHistory.push(parseFloat(bankAccount.toFixed(2)));
+        if (creditCard != null) {
+          creditCardHistory.push(parseFloat(creditCard.getBalance().toFixed(2)));
+        }
       }
     }
 
@@ -65,15 +77,17 @@ export class CreditCardService {
       // Make the final payment.
       let balance = creditCard.getBalance();
       bankAccount -= balance;
-      creditCard.payBalance();
+      // creditCard.payBalance();
+      creditCard.payAmount(balance);
       bankAccountHistory.push(parseFloat(bankAccount.toFixed(2)));
+      creditCardHistory.push(parseFloat(creditCard.getBalance().toFixed(2)));
     }
     else {
       // Make a corresponding entry, so the history lengths are equal (for plotting).
       bankAccountHistory.push(parseFloat(bankAccountHistory[bankAccountHistory.length - 1].toFixed(2)));
     }
 
-    return bankAccountHistory;
+    return {bankAccountHistory: bankAccountHistory, creditCardHistory: creditCardHistory};
   }
 
   randomize(numSeries: number, numPoints: number, labels: string[], baseNum: number): Array<any> {
